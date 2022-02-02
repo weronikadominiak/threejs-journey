@@ -11,34 +11,29 @@ const scene = new THREE.Scene();
 /**
  * Objects
  */
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-const mesh = new THREE.Mesh(geometry, material);
+const group = new THREE.Group();
+scene.add(group);
 
-// Positioning
-// mesh.position.x = 0.7;
-// mesh.position.y = -0.6;
-// mesh.position.z = 1;
-// It's the same as:
-mesh.position.set(0.7, -0.6, 1);
+const cube1 = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: 0xff0000 })
+);
 
-// Scale
-// mesh.scale.x = 2;
-// mesh.scale.y = 0.5;
-// mesh.scale.z = 0.5;
-mesh.scale.set(2, 0.5, 0.5);
+group.add(cube1);
 
-// Roatation - uses Euler not vector3
-// Updating rotation updates quaternion
-// if rotation got stuck change order of rotations or :
-// mesh.rotation.reorder("YXZ");
-mesh.rotation.x = Math.PI * 0.25;
-mesh.rotation.y = Math.PI * 0.25;
-// Quaternion - like rotation but more mathematically correct
+const cube2 = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+);
+cube2.position.x = -2;
+group.add(cube2);
 
-// We can combine transformations, just must be put before render
-
-scene.add(mesh);
+const cube3 = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: 0x0000ff })
+);
+cube3.position.x = 2;
+group.add(cube3);
 
 // AXES HELPER
 const axesHelper = new THREE.AxesHelper(3); // number sets length of lines, is optional
@@ -61,12 +56,12 @@ camera.position.z = 3;
 // camera.position.x = 1;
 
 // look at - we can make objects look at the other objects
-camera.lookAt(mesh.position);
+// camera.lookAt(mesh.position);
 
 scene.add(camera);
 
-console.log(mesh.position.length()); // distance from center of the scene
-console.log(mesh.position.distanceTo(camera.position)); // distance from camera
+// console.log(mesh.position.length()); // distance from center of the scene
+// console.log(mesh.position.distanceTo(camera.position)); // distance from camera
 // mesh.position.normalize(camera.position); // takes vector length and reduces it to 1
 
 /**
